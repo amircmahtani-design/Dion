@@ -158,6 +158,8 @@ def shell(filename, active, title, desc, body, extra_head=""):
 {body}
 </main>
 
+{LIGHTBOX}
+
 {footer(active)}
 <script src="assets/site.js"></script>
 </body>
@@ -177,17 +179,37 @@ def pagehead(eyebrow, heading, lede="", hand=""):
     return out + "\n  </div>\n</section>"
 
 
-def figset(wide, sq1, sq2):
-    """One wide plate, two squares beneath. The pair equals the plate."""
-    def cell(cls, spec):
+def plate(slot_prefix, a, b, c=None):
+    """The overlapping composition: a tall plate, a square riding over its
+    bottom-right corner, and an optional small accent at bottom-left.
+    Each figure is a button so it opens in the zoomable lightbox."""
+    def cell(cls, slot, spec):
         pid, w, h, alt = spec
-        return (f'    <figure class="fig {cls} rv">\n'
+        return (f'    <!-- photo slot: {slot} — swap src for img/{slot}.jpg -->\n'
+                f'    <button type="button" class="fig {cls} rv" '
+                f'data-full="{img(pid, 1600, int(1600*h/w), 80)}" '
+                f'aria-label="Open photo: {alt}">\n'
                 f'      <img src="{img(pid, w, h)}" width="{w}" height="{h}" '
-                f'loading="lazy" decoding="async" alt="{alt}">\n    </figure>')
-    return ("  <div class=\"figset\">\n"
-            + cell("fig--wide", wide) + "\n"
-            + cell("fig--sq", sq1) + "\n"
-            + cell("fig--sq", sq2) + "\n  </div>")
+                f'loading="lazy" decoding="async" alt="{alt}">\n    </button>')
+    cls = "overlap has-c" if c else "overlap"
+    out = [f'  <div class="{cls}">']
+    out.append(cell("fig--a", slot_prefix + "-a", a))
+    out.append(cell("fig--b", slot_prefix + "-b", b))
+    if c:
+        out.append(cell("fig--c", slot_prefix + "-c", c))
+    out.append("  </div>")
+    return "\n".join(out)
+
+
+LIGHTBOX = """<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="lb__stage">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button type="button" class="lb__close" aria-label="Close">&times;</button>
+  <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
+  <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
+  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+</div>"""
 
 
 # ── page bodies ────────────────────────────────────────────────────────
@@ -287,10 +309,10 @@ DRINKS_BODY = f"""{pagehead("Drinks", "Drinks we actually <em style='font-style:
 {CURVE.format(c="cream")}
 <section class="section section--cream">
   <div class="wrap">
-{figset(
-  ("1470337458703-46ad1756a187", 1600, 800, "Amber cocktail poured over a single large cube of ice"),
-  ("1597075687490-8f673c6c17f6", 900, 900, "A cocktail resting on a wooden table"),
-  ("1574879948818-1cfda7aa5b1a", 900, 900, "A drink being poured behind the bar"))}
+{plate("drinks",
+  ("1597075687490-8f673c6c17f6", 900, 1125, "A cocktail resting on a wooden table"),
+  ("1470337458703-46ad1756a187", 900, 900,  "Amber cocktail poured over a single large cube of ice"),
+  ("1574879948818-1cfda7aa5b1a", 900, 900,  "A drink being poured behind the bar"))}
     <ul class="list" id="drinkList"></ul>
     <p class="list__foot" id="drinkFoot"></p>
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
@@ -305,10 +327,10 @@ VIBE_BODY = f"""{pagehead("The Vibe", "Come for one. Stay for three.",
   "Fancy without the fuss.")}
 <section class="section section--olive">
   <div class="wrap">
-{figset(
-  ("1485872299829-c673f5194813", 1600, 800, "Two friends talking over drinks"),
-  ("1694659589047-64e59133764a", 900, 900, "A bulb glowing in the branches overhead"),
-  ("1714381633320-e5c3fd0f14db", 900, 900, "Tables and chairs under strung lights"))}
+{plate("vibe",
+  ("1485872299829-c673f5194813", 900, 1125, "Two friends talking over drinks"),
+  ("1714381633320-e5c3fd0f14db", 900, 900,  "Tables and chairs under strung lights"),
+  ("1694659589047-64e59133764a", 900, 900,  "A bulb glowing in the branches overhead"))}
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
       <p class="lede rv">No dress code, no island mark-up. Music that suits the hour, and the people who turn up.</p>
       <p class="rv"><a class="btn" href="gallery.html">See the gallery
@@ -329,10 +351,12 @@ GAL = [
     ("1604601638534-8cc3198794e2", "A quiet corner under the trees"),
 ]
 GAL_HTML = "\n".join(
-    f'      <button type="button" data-full="{img(pid,1500,1500,80)}">'
+    f'      <!-- photo slot: gallery-{n} — swap src for img/gallery-{n}.jpg -->\n'
+    f'      <button type="button" data-full="{img(pid,1500,1500,80)}" '
+    f'aria-label="Open photo: {alt}">'
     f'<img src="{img(pid,800,800)}" width="800" height="800" loading="lazy" '
     f'decoding="async" alt="{alt}"></button>'
-    for pid, alt in GAL)
+    for n, (pid, alt) in enumerate(GAL, 1))
 
 GALLERY_BODY = f"""{pagehead("Gallery", "Nights that ran long.",
   "Eight from the courtyard. Tap any of them to see it full size.")}
@@ -342,20 +366,18 @@ GALLERY_BODY = f"""{pagehead("Gallery", "Nights that ran long.",
 {GAL_HTML}
     </div>
   </div>
-</section>
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
-  <button type="button" id="lbClose" aria-label="Close">×</button>
-  <img id="lbImg" src="" alt="">
-</div>"""
+</section>"""
 
 ABOUT_BODY = f"""{pagehead("About", "A little island energy, <em>without leaving the mainland.</em>")}
 {CURVE.format(c="cream")}
 <section class="section section--cream">
   <div class="wrap">
-    <figure class="fig fig--wide rv" style="grid-column:auto">
+    <!-- photo slot: about — swap src for img/about.jpg -->
+    <button type="button" class="fig fig--full rv" data-full="hero-wide.jpeg"
+            aria-label="Open photo: the DION courtyard at night">
       <img src="hero-wide.jpeg" width="2000" height="1330" loading="lazy" decoding="async"
            alt="The DION courtyard on a summer night">
-    </figure>
+    </button>
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
       <p class="lede rv">DION is a bar. Good drinks made properly, Greek bottles and ingredients we
         actually like, music that suits the hour, and the people who turn up.</p>

@@ -71,10 +71,12 @@
 <svg class="curve curve--cream" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
 <section class="section section--cream">
   <div class="wrap">
-    <figure class="fig fig--wide rv" style="grid-column:auto">
+    <!-- photo slot: about — swap src for img/about.jpg -->
+    <button type="button" class="fig fig--full rv" data-full="hero-wide.jpeg"
+            aria-label="Open photo: the DION courtyard at night">
       <img src="hero-wide.jpeg" width="2000" height="1330" loading="lazy" decoding="async"
            alt="The DION courtyard on a summer night">
-    </figure>
+    </button>
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
       <p class="lede rv">DION is a bar. Good drinks made properly, Greek bottles and ingredients we
         actually like, music that suits the hour, and the people who turn up.</p>
@@ -86,6 +88,16 @@
   </div>
 </section>
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="lb__stage">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button type="button" class="lb__close" aria-label="Close">&times;</button>
+  <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
+  <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
+  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+</div>
 
 <footer class="foot">
   <div class="wrap">

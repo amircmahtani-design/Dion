@@ -72,16 +72,19 @@
 </section>
 <section class="section section--olive">
   <div class="wrap">
-  <div class="figset">
-    <figure class="fig fig--wide rv">
-      <img src="https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&amp;fit=crop&amp;w=1600&amp;h=800&amp;q=72" width="1600" height="800" loading="lazy" decoding="async" alt="Two friends talking over drinks">
-    </figure>
-    <figure class="fig fig--sq rv">
-      <img src="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="A bulb glowing in the branches overhead">
-    </figure>
-    <figure class="fig fig--sq rv">
+  <div class="overlap has-c">
+    <!-- photo slot: vibe-a — swap src for img/vibe-a.jpg -->
+    <button type="button" class="fig fig--a rv" data-full="https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&amp;fit=crop&amp;w=1600&amp;h=2000&amp;q=80" aria-label="Open photo: Two friends talking over drinks">
+      <img src="https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=72" width="900" height="1125" loading="lazy" decoding="async" alt="Two friends talking over drinks">
+    </button>
+    <!-- photo slot: vibe-b — swap src for img/vibe-b.jpg -->
+    <button type="button" class="fig fig--b rv" data-full="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: Tables and chairs under strung lights">
       <img src="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="Tables and chairs under strung lights">
-    </figure>
+    </button>
+    <!-- photo slot: vibe-c — swap src for img/vibe-c.jpg -->
+    <button type="button" class="fig fig--c rv" data-full="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: A bulb glowing in the branches overhead">
+      <img src="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="A bulb glowing in the branches overhead">
+    </button>
   </div>
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
       <p class="lede rv">No dress code, no island mark-up. Music that suits the hour, and the people who turn up.</p>
@@ -92,6 +95,16 @@
   </div>
 </section>
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="lb__stage">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button type="button" class="lb__close" aria-label="Close">&times;</button>
+  <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
+  <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
+  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+</div>
 
 <footer class="foot">
   <div class="wrap">

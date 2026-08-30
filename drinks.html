@@ -72,16 +72,19 @@
 <svg class="curve curve--cream" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
 <section class="section section--cream">
   <div class="wrap">
-  <div class="figset">
-    <figure class="fig fig--wide rv">
-      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1600&amp;h=800&amp;q=72" width="1600" height="800" loading="lazy" decoding="async" alt="Amber cocktail poured over a single large cube of ice">
-    </figure>
-    <figure class="fig fig--sq rv">
-      <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="A cocktail resting on a wooden table">
-    </figure>
-    <figure class="fig fig--sq rv">
+  <div class="overlap has-c">
+    <!-- photo slot: drinks-a — swap src for img/drinks-a.jpg -->
+    <button type="button" class="fig fig--a rv" data-full="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=1600&amp;h=2000&amp;q=80" aria-label="Open photo: A cocktail resting on a wooden table">
+      <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=72" width="900" height="1125" loading="lazy" decoding="async" alt="A cocktail resting on a wooden table">
+    </button>
+    <!-- photo slot: drinks-b — swap src for img/drinks-b.jpg -->
+    <button type="button" class="fig fig--b rv" data-full="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: Amber cocktail poured over a single large cube of ice">
+      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="Amber cocktail poured over a single large cube of ice">
+    </button>
+    <!-- photo slot: drinks-c — swap src for img/drinks-c.jpg -->
+    <button type="button" class="fig fig--c rv" data-full="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: A drink being poured behind the bar">
       <img src="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="A drink being poured behind the bar">
-    </figure>
+    </button>
   </div>
     <ul class="list" id="drinkList"></ul>
     <p class="list__foot" id="drinkFoot"></p>
@@ -92,6 +95,16 @@
   </div>
 </section>
 </main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+  <div class="lb__stage">
+    <img id="lbImg" src="" alt="">
+  </div>
+  <button type="button" class="lb__close" aria-label="Close">&times;</button>
+  <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
+  <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
+  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+</div>
 
 <footer class="foot">
   <div class="wrap">
