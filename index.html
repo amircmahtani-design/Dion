@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#0B0B0A">
 <meta property="og:title" content="DION — Mainland Soul">
 <meta property="og:description" content="Incredible drinks, feel-good energy and unforgettable nights.">
-<meta property="og:image" content="img/hero-wide-1200.jpg">
+<meta property="og:image" content="hero-wide.jpeg">
 <meta property="og:type" content="website">
 
 <!-- Fonts load in the background. Nothing in the entrance depends on them. -->
@@ -20,9 +20,8 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Jost:wght@300;400;500&family=Caveat:wght@500&display=swap"></noscript>
 
 <!-- Hero is preloaded, but the entrance never waits on it. -->
-<link rel="preload" as="image" href="img/hero-wide.jpg" media="(min-width:1301px)">
-<link rel="preload" as="image" href="img/hero-wide-1200.jpg" media="(min-width:641px) and (max-width:1300px)">
-<link rel="preload" as="image" href="img/hero-mobile.jpg" media="(max-width:640px)">
+<link rel="preload" as="image" href="hero-wide.jpeg" fetchpriority="high">
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════════════
@@ -73,10 +72,11 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
 body{margin:0;background:var(--olive-900);color:var(--ink);font-family:var(--sans);font-weight:300;
      font-size:clamp(15px,.42vw + 14px,17px);line-height:1.65;overflow-x:hidden}
 img{max-width:100%;display:block}
+figure{margin:0}   /* the UA default is 1em 40px — it was insetting every photo */
 a{color:inherit}
 :focus-visible{outline:2px solid var(--gold-lt);outline-offset:3px;border-radius:2px}
 
@@ -215,10 +215,22 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
     gap:26px;background:var(--olive-950);opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s;
     z-index:-1}
   body.menu-open .nav__links{opacity:1;visibility:visible}
+  /* backdrop-filter makes .nav the containing block for its position:fixed
+     child, so once the bar went sticky the menu collapsed into the header.
+     Drop the filter while the menu is open and inset:0 means the viewport
+     again. The bar's own background is redundant over a full-screen panel. */
+  body.menu-open .nav,body.menu-open .nav.is-stuck{backdrop-filter:none;background:transparent}
+  body.menu-open{overflow:hidden}
   .nav__links a{font-size:15px;letter-spacing:.28em}
   .nav__links li:last-child{margin-top:14px}
   .nav__links .btn{display:inline-flex}
+  .nav__burger{width:44px;height:44px}
+  .nav__brand svg{width:23px}
+  .nav__brand span{font-size:17px}
+  .nav__brand small{font-size:7.5px;letter-spacing:.26em;text-indent:.26em;white-space:nowrap}
+  .nav{padding-inline:clamp(18px,5vw,28px);gap:14px}
 }
+a,button{-webkit-tap-highlight-color:rgba(201,168,106,.18)}
 
 /* ═══ 4. HERO ═══════════════════════════════════════════════════════════ */
 .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;
@@ -229,9 +241,11 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
   animation:enterZoom var(--doors-dur) var(--door-ease) var(--doors-at) both;
   animation-play-state:var(--intro-play)}
 @keyframes enterZoom{from{transform:scale(1.025)}to{transform:scale(1)}}
-.hero__media img{width:100%;height:100%;object-fit:cover;object-position:62% 55%}
+.hero__media img{width:100%;height:100%;object-fit:cover;object-position:58% 52%}
 .js .hero__media img{opacity:0;transition:opacity .9s ease}
 .hero__media img.is-loaded{opacity:1}
+/* If a photo ever fails, show the tinted placeholder — never a broken-file icon. */
+img.is-failed{opacity:0!important;visibility:hidden}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(100deg,rgba(15,21,11,.96) 0%,rgba(17,24,13,.9) 26%,rgba(20,27,16,.55) 48%,rgba(20,27,16,.06) 68%,transparent 82%)}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;
@@ -242,7 +256,7 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 .hero h1 em{display:block;font-style:italic;color:var(--sage);font-weight:300}
 .squiggle{display:block;width:74px;height:12px;margin:26px 0 24px;color:var(--gold);opacity:.8}
 .hero p{max-width:24ch;color:rgba(243,238,227,.88);font-size:clamp(16px,1.3vw,19px);margin:0 0 22px}
-.hero .hand{margin-bottom:34px}
+.hero .hand{display:block;width:fit-content;margin-bottom:34px}
 .hero .hand svg{display:inline-block;width:15px;height:15px;margin-left:7px;vertical-align:-1px;
   color:var(--gold)}
 .scroll-cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;
@@ -254,10 +268,30 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
                50%{opacity:1;transform:scaleY(1);transform-origin:top}}
 @media (max-width:900px){
   .hero{align-items:flex-end}
-  .hero::before{background:linear-gradient(to top,rgba(14,20,10,.95) 12%,rgba(16,22,12,.72) 42%,rgba(16,22,12,.2) 70%,rgba(10,14,8,.45) 100%)}
-  .hero__inner{padding-top:16vh;padding-bottom:96px}
-  .hero p{max-width:32ch}
+  /* Portrait crop: swing the frame onto the sign, the lit window and the crowd. */
+  .hero__media img{object-position:62% 50%}
+  /* Bottom-weighted scrim so the type stays readable over a real photo. */
+  .hero::before{background:linear-gradient(to top,rgba(11,15,8,.97) 0%,rgba(12,17,9,.93) 28%,rgba(14,20,10,.66) 50%,rgba(14,20,10,.18) 76%,rgba(8,12,6,.58) 100%)}
+  .hero::after{background:none}
+  /* A shorter hero takes a wider slice of the photo — sharper, and more of the
+     courtyard survives the crop. It also lets the next section peek. */
+  .hero{min-height:clamp(560px,80svh,780px)}
+  .hero__inner{padding-top:16vh;padding-bottom:clamp(52px,8vh,80px)}
+  .hero h1{font-size:clamp(42px,12.4vw,64px);line-height:1.02}
+  .squiggle{width:62px;margin:20px 0 20px}
+  .hero p{max-width:30ch;font-size:16.5px}
+  .hero .hand{font-size:20px;margin-bottom:28px}
+  .hero .btn{padding:15px 22px}
   .scroll-cue{display:none}
+}
+@media (max-width:640px){
+  .hero__media img{object-position:68% 50%}
+}
+@media (max-width:400px){
+  .hero__inner{padding-top:17vh}
+  .hero h1{font-size:40px}
+  .hero p{margin-bottom:16px}
+  .hero .hand{margin-bottom:24px}
 }
 
 /* ═══ 5. FEATURE STRIP ══════════════════════════════════════════════════ */
@@ -281,11 +315,14 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 @media (max-width:420px){
   .feat{padding-inline:10px}
   .feat p{font-size:13.5px}
+  .feat h3{letter-spacing:.16em;font-size:10.5px}
 }
 
 /* ═══ 6. DRINKS ═════════════════════════════════════════════════════════ */
 .drinks{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,74px);align-items:start}
-.drinks__head{max-width:19ch}
+/* ch resolves against this element's own font, so it belongs on the h2 —
+   on the wrapper it was measuring 19 characters of 16px Jost. */
+.drinks__head h2{max-width:13ch}
 .drinks__head h2 em{font-style:italic;color:var(--olive-400)}
 .drinks__note{margin:22px 0 0;max-width:34ch;color:var(--ink-soft)}
 .drinks__figs{position:relative;padding-top:12px}
@@ -308,6 +345,11 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
   letter-spacing:.02em}
 @media (max-width:880px){
   .drinks{grid-template-columns:1fr;gap:34px}
+  /* Character-count measures are for wide columns. On a phone the column IS
+     the measure — capping it leaves half the screen empty. */
+  h2{font-size:clamp(32px,8.4vw,46px)}
+  .drinks__head h2,.vibe__head h2,.about h2,.drinks__note,.lede,
+  .vibe__say p,.about__body p,.gal__title,.contact__title{max-width:none}
   .drinks__figs{display:flex;gap:12px;padding-top:0}
   .drinks__figs .fig--tall{width:58%}
   .drinks__figs .fig--wide{width:42%;margin:0;outline:0;align-self:flex-end;aspect-ratio:1}
@@ -316,7 +358,8 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 
 /* ═══ 7. THE VIBE ═══════════════════════════════════════════════════════ */
 .vibe{position:relative}
-.vibe__head{max-width:20ch;margin-bottom:clamp(34px,5vw,62px)}
+.vibe__head{margin-bottom:clamp(34px,5vw,62px)}
+.vibe__head h2{max-width:14ch}
 .vibe__head h2{color:var(--cream)}
 .vibe__grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:end}
 .vibe__grid .fig{outline:1px solid rgba(201,168,106,.15)}
@@ -337,10 +380,11 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 /* ═══ 8. GALLERY ════════════════════════════════════════════════════════ */
 .section--gallery{background:var(--olive-950);color:var(--cream);
   padding-block:clamp(72px,10vw,132px)}
+.gal__title{max-width:16ch}
 .gal{columns:3;column-gap:16px;margin-top:34px}
-.gal button{display:block;width:100%;margin:0 0 16px;padding:0;border:0;background:none;
+.gal button{display:block;width:100%;margin:0 0 16px;padding:0;border:0;background:var(--olive-800);
   cursor:zoom-in;break-inside:avoid;overflow:hidden;position:relative}
-.gal img{width:100%;transition:transform 1.2s cubic-bezier(.2,.6,.2,1),filter .6s ease;
+.gal img{width:100%;height:auto;transition:transform 1.2s cubic-bezier(.2,.6,.2,1),filter .6s ease;
   filter:saturate(.96)}
 .gal button:hover img{transform:scale(1.05);filter:saturate(1.06)}
 @media (max-width:880px){.gal{columns:2;column-gap:10px}.gal button{margin-bottom:10px}}
@@ -362,6 +406,7 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 @media (max-width:880px){.about{grid-template-columns:1fr;gap:28px}.about .fig{aspect-ratio:3/2}}
 
 /* ═══ 10. CONTACT ═══════════════════════════════════════════════════════ */
+.contact__title{color:var(--cream);max-width:13ch}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px)}
 .facts{list-style:none;margin:0;padding:0;display:grid;gap:26px}
 .facts li{display:grid;gap:5px}
@@ -559,9 +604,7 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 <section class="hero" data-nav="#top">
   <picture class="hero__media" id="heroMedia"
            style="background-image:url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAVACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDnbS286XZjkjI9K1ZNGT/V+b8mM5z3PfFNEcb3G6ElDkZwAK0o5YVaONtxZl3cj+foaxd73vobJK1jBj0Sb7Qqxyjyz/y0AIP5H+lXbXw9FEd9y/m8fdAwPzq99tEKMzQGZgSI1BwRT7a481XibO+MDcc9amUplKMSgwfT4km3mYhQjK3Q+h9qIJ3uU2OQOmGAwe/U96KKL+7cUlZjIrg75Vx92MtnPPXFWLd2d7cjC+YDn8qKK0+yjL7Vz//Z)">
-    <source media="(max-width:640px)" srcset="img/hero-mobile.jpg">
-    <source media="(max-width:1300px)" srcset="img/hero-wide-1200.jpg">
-    <img id="heroImg" src="img/hero-wide.jpg" fetchpriority="high" decoding="async"
+    <img id="heroImg" src="hero-wide.jpeg" width="2000" height="1330" fetchpriority="high" decoding="async"
          alt="The DION courtyard on a summer night — string lights over full tables and the bar glowing through open shutters">
   </picture>
 
@@ -639,12 +682,12 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 
     <div class="drinks__figs rv">
       <figure class="fig fig--tall">
-        <img src="img/g-table.jpg" width="1200" height="686" loading="lazy" decoding="async"
-             alt="A courtyard table at DION with drinks and a candle between friends">
+        <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=960&amp;h=1200&amp;q=70" width="960" height="1200" loading="lazy" decoding="async"
+             alt="A cocktail on a wooden table, candlelit">
       </figure>
       <figure class="fig fig--wide">
-        <img src="img/g-bar.jpg" width="900" height="869" loading="lazy" decoding="async"
-             alt="The bar at DION seen through open wooden shutters">
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1000&amp;h=1000&amp;q=70" width="1000" height="1000" loading="lazy" decoding="async"
+             alt="Amber cocktail poured over a single large cube of ice">
       </figure>
     </div>
 
@@ -662,16 +705,16 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
     </div>
     <div class="vibe__grid">
       <figure class="fig v1 rv">
-        <img src="img/g-crowd.jpg" width="1200" height="709" loading="lazy" decoding="async"
-             alt="Friends talking around tables in the DION courtyard">
+        <img src="https://images.unsplash.com/photo-1485872299829-c673f5194813?auto=format&amp;fit=crop&amp;w=1200&amp;h=800&amp;q=70" width="1200" height="800" loading="lazy" decoding="async"
+             alt="Two friends talking over drinks">
       </figure>
       <figure class="fig v2 rv-fade">
-        <img src="img/g-tree.jpg" width="900" height="1350" loading="lazy" decoding="async"
-             alt="The old cypress in the courtyard, lit from below">
+        <img src="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=70" width="900" height="1125" loading="lazy" decoding="async"
+             alt="A bulb hanging from a wire in the branches of a tree">
       </figure>
       <figure class="fig v3 rv-fade">
-        <img src="img/g-lights.jpg" width="1200" height="687" loading="lazy" decoding="async"
-             alt="String lights and shade sails over the courtyard at night">
+        <img src="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=1200&amp;h=675&amp;q=70" width="1200" height="675" loading="lazy" decoding="async"
+             alt="A terrace of tables and chairs under strung lights">
       </figure>
       <div class="vibe__say rv">
         <p>It starts with one drink and a table for two. Then someone pulls up a chair,
@@ -686,14 +729,14 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 <section class="section section--gallery" id="gallery" data-nav="#gallery">
   <div class="wrap">
     <p class="eyebrow rv">Gallery</p>
-    <h2 class="rv" style="max-width:16ch">Nights that ran long.</h2>
+    <h2 class="rv gal__title">Nights that ran long.</h2>
     <div class="gal">
-      <button type="button" data-full="img/g-crowd.jpg"><img src="img/g-crowd.jpg" width="1200" height="709" loading="lazy" decoding="async" alt="A full courtyard on a summer night"></button>
-      <button type="button" data-full="img/g-tree.jpg"><img src="img/g-tree.jpg" width="900" height="1350" loading="lazy" decoding="async" alt="The lit cypress above the tables"></button>
-      <button type="button" data-full="img/g-lights.jpg"><img src="img/g-lights.jpg" width="1200" height="687" loading="lazy" decoding="async" alt="Bulbs strung between the sails and the wall"></button>
-      <button type="button" data-full="img/g-sign.jpg"><img src="img/g-sign.jpg" width="900" height="707" loading="lazy" decoding="async" alt="The DION column sign on the courtyard wall"></button>
-      <button type="button" data-full="img/g-table.jpg"><img src="img/g-table.jpg" width="1200" height="686" loading="lazy" decoding="async" alt="Drinks and a candle on a wooden table"></button>
-      <button type="button" data-full="img/g-bar.jpg"><img src="img/g-bar.jpg" width="900" height="869" loading="lazy" decoding="async" alt="Warm light spilling out of the bar window"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=1600&amp;h=1066&amp;q=78"><img src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=1200&amp;h=800&amp;q=70" width="1200" height="800" loading="lazy" decoding="async" alt="Three people raising glasses together"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=1600&amp;h=2133&amp;q=78"><img src="https://images.unsplash.com/photo-1694659589047-64e59133764a?auto=format&amp;fit=crop&amp;w=900&amp;h=1200&amp;q=70" width="900" height="1200" loading="lazy" decoding="async" alt="A bulb glowing in the branches overhead"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=1600&amp;h=900&amp;q=78"><img src="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=1200&amp;h=675&amp;q=70" width="1200" height="675" loading="lazy" decoding="async" alt="Tables under strung lights"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=1600&amp;h=2000&amp;q=78"><img src="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=70" width="900" height="1125" loading="lazy" decoding="async" alt="A lit terrace after dark"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=1600&amp;h=1066&amp;q=78"><img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=1200&amp;h=800&amp;q=70" width="1200" height="800" loading="lazy" decoding="async" alt="A cocktail resting on wood"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=1600&amp;h=2133&amp;q=78"><img src="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=900&amp;h=1200&amp;q=70" width="900" height="1200" loading="lazy" decoding="async" alt="A drink being poured behind the bar"></button>
     </div>
   </div>
 </section>
@@ -710,8 +753,8 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
       <p class="hand">Fancy without the fuss.</p>
     </div>
     <figure class="fig rv">
-      <img src="img/g-sign.jpg" width="900" height="707" loading="lazy" decoding="async"
-           alt="The DION column mark, hand-cut in metal on the courtyard wall">
+      <img src="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=900&amp;h=1080&amp;q=70" width="900" height="1080" loading="lazy" decoding="async"
+           alt="A warm outdoor seating area strung with lights after dark">
     </figure>
   </div>
 </section>
@@ -720,7 +763,7 @@ body.menu-open .nav__burger span::after{transform:translateY(-5px) rotate(-45deg
 <section class="section section--olive" id="contact" data-nav="#contact">
   <div class="wrap">
     <p class="eyebrow rv">Find us</p>
-    <h2 class="rv" style="color:var(--cream);max-width:13ch">Come by. Stay a while.</h2>
+    <h2 class="rv contact__title">Come by. Stay a while.</h2>
 
     <div class="contact">
       <div class="rv">
@@ -905,11 +948,14 @@ const DION = {
   function markHeroLoaded(){ if (hero) hero.classList.add("is-loaded"); }
   let heroReady = false;
   function heroDone(){ heroReady = true; markHeroLoaded(); release(); }
+  /* A photo that never arrives must not hold the doors — and must not be shown. */
+  function heroFailed(){ heroReady = true; if (hero) hero.classList.add("is-failed"); release(); }
   if (hero) {
     if (hero.complete && hero.naturalWidth) heroDone();
+    else if (hero.complete) heroFailed();
     else {
       hero.addEventListener("load", heroDone, { once:true });
-      hero.addEventListener("error", heroDone, { once:true });
+      hero.addEventListener("error", heroFailed, { once:true });
     }
   }
 
@@ -931,6 +977,14 @@ const DION = {
 
   if (skip) skip.addEventListener("click", finish);
 })();
+
+/* ═══ 2b. NO BROKEN PICTURES ═══════════════════════════════════════════
+   Anything that fails to load hides itself, so the frame falls back to its
+   olive block rather than a browser broken-file icon.                    */
+addEventListener("error", e => {
+  const el = e.target;
+  if (el && el.tagName === "IMG") el.classList.add("is-failed");
+}, true);
 
 /* ═══ 3. NAVIGATION ════════════════════════════════════════════════════ */
 (function(){
