@@ -1,60 +1,291 @@
 /* ═══════════════════════════════════════════════════════════════════════
    DION — shared script for every page.
-   Edit the DION object below and the change appears on all six pages.
+   Edit the DION object below and the change appears on all seven pages.
+
+   Anything written as { el: "...", en: "..." } is Greek first, English
+   second. Greek is what a visitor sees unless they flip the EN switch.
    ═══════════════════════════════════════════════════════════════════════ */
 
 const DION = {
+
+  /* ── the basics ──────────────────────────────────────────────────── */
   phone: "+30 694 822 2527",
   address: ["28is Oktovriou 22", "Palea Fokea 190 13, Greece"],
   /* Google lists a Tuesday 08:30–15:00 slot too, which looks like a stale
      entry rather than a real morning shift — worth checking your listing. */
-  hours: ["Open from 20:30 · Friday from 21:00", "Closed Sundays"],
+  hours: {
+    el: ["Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00", "Κλειστά τις Κυριακές"],
+    en: ["Open from 20:30 · Friday from 21:00", "Closed Sundays"]
+  },
   mapUrl: "https://www.google.com/maps/search/?api=1&query=Dion&query_place_id=ChIJa93n6GrtoRQRnKa6rMdH4ck",
   instagram: { handle: "@yourhandle", url: "https://instagram.com/" },
-  cta: "Reserve a table",
 
+  /* Every "book a table" button dials this number. */
+  cta: { el: "Κλείσε τραπέζι", en: "Book a table" },
+
+  /* WhatsApp button on the Contact page. Set active:false to hide it.
+     Leave number empty to reuse the phone number above. */
+  whatsapp: { active: true, number: "" },
+
+  /* ── the announcement bar ────────────────────────────────────────── */
+  /* Set active:true to show a strip across the top of every page.
+     A visitor can dismiss it, and it stays dismissed for that visit. */
+  announcement: {
+    active: false,
+    el: "Απόψε στο DION — DJ set από τις 21:30.",
+    en: "Tonight at DION — DJ set from 21:30."
+  },
+
+  /* ── events ──────────────────────────────────────────────────────── */
+  /* Leave the list empty and the Events page drops out of the menu
+     entirely — nobody lands on an empty page. Set showEventsWhenEmpty
+     to true if you would rather keep the link and show the "nothing
+     scheduled" message instead.
+
+     Dates are yyyy-mm-dd for sorting only; the page prints them
+     day-first in whichever language is showing. Anything dated before
+     today disappears on its own, so old nights never need deleting.
+
+     To add one, copy this shape:
+
+     { date: "2026-09-19", time: "21:30",
+       title: { el: "DJ set", en: "DJ set" },
+       text:  { el: "Λίγα λόγια για τη βραδιά.",
+                en: "A line or two about the night." } },
+  */
+  showEventsWhenEmpty: false,
+  events: [],
+
+  /* ── the drinks list ─────────────────────────────────────────────── */
+  /* Categories print in this order. A category with no items is skipped,
+     so you can fill them in one at a time. Prices are optional — leave
+     "" and nothing is printed. */
   drinks: [
-    { name: "Mastiha Spritz",   of: "mastiha, sparkling, soda, lemon",   price: "" },
-    { name: "Olive Oil Sour",   of: "tsipouro, lemon, honey, olive oil", price: "" },
-    { name: "Aegean Negroni",   of: "Greek gin, sweet vermouth, bitter", price: "" },
-    { name: "Frozen Rakomelo",  of: "raki, thyme honey, clove",          price: "" },
-    { name: "Cypress & Tonic",  of: "Greek gin, rosemary, grapefruit",   price: "" },
-    { name: "Kalimera",         of: "vodka, sour cherry, mint",          price: "" }
+    {
+      name: { el: "Signature Cocktails", en: "Signature Cocktails" },
+      items: [
+        { name: "Mastiha Spritz",  price: "",
+          of: { el: "μαστίχα, αφρώδες, σόδα, λεμόνι",       en: "mastiha, sparkling, soda, lemon" } },
+        { name: "Olive Oil Sour",  price: "",
+          of: { el: "τσίπουρο, λεμόνι, μέλι, ελαιόλαδο",    en: "tsipouro, lemon, honey, olive oil" } },
+        { name: "Aegean Negroni",  price: "",
+          of: { el: "ελληνικό τζιν, γλυκό βερμούτ, bitter", en: "Greek gin, sweet vermouth, bitter" } },
+        { name: "Frozen Rakomelo", price: "",
+          of: { el: "ρακή, θυμαρίσιο μέλι, γαρύφαλλο",      en: "raki, thyme honey, clove" } },
+        { name: "Cypress & Tonic", price: "",
+          of: { el: "ελληνικό τζιν, δεντρολίβανο, γκρέιπφρουτ", en: "Greek gin, rosemary, grapefruit" } },
+        { name: "Kalimera",        price: "",
+          of: { el: "βότκα, βύσσινο, δυόσμος",              en: "vodka, sour cherry, mint" } }
+      ]
+    },
+    { name: { el: "Κλασικά Cocktails", en: "Classics" },       items: [] },
+    { name: { el: "Κρασί",             en: "Wine" },           items: [] },
+    { name: { el: "Ελληνικές Ετικέτες", en: "Greek Bottles" },  items: [] },
+    { name: { el: "Μπύρα",             en: "Beer" },           items: [] },
+    { name: { el: "Αποστάγματα",       en: "Spirits" },        items: [] },
+    { name: { el: "Χωρίς Αλκοόλ",      en: "Alcohol-Free" },   items: [] }
   ],
-  drinksFootnote: "The list moves with the season — ask what's good tonight.",
+  drinksFootnote: {
+    el: "Ο κατάλογος αλλάζει με την εποχή — ρώτησέ μας τι είναι καλό απόψε.",
+    en: "The list moves with the season — ask what's good tonight."
+  },
 
-  introOncePerSession: true,   // entrance plays once per browser session
+  /* ── the entrance animation (home page only) ─────────────────────── */
+  introOncePerSession: true,
   doorsAt: 2850,
   doorsDur: 1150,
   maxHold: 2200
 };
 
+
+/* ═══ 0. LANGUAGE ══════════════════════════════════════════════════════
+   Both languages ship inside every page; CSS shows one set and hides the
+   other. The head script has already picked one before first paint, so
+   all this does is handle the toggle and keep the <title> in step.     */
+const LANG = (function(){
+  const root = document.documentElement;
+  const get  = () => root.getAttribute("data-lang") === "en" ? "en" : "el";
+
+  function set(l){
+    l = (l === "en") ? "en" : "el";
+    root.lang = l;
+    root.setAttribute("data-lang", l);
+    const title = root.getAttribute("data-title-" + l);
+    if (title) document.title = title;
+    try { localStorage.setItem("dion-lang", l); } catch(e){}
+    dispatchEvent(new CustomEvent("dion:lang", { detail: l }));
+  }
+
+  set(get());                                   // sync the title on load
+
+  const btn = document.getElementById("lang");
+  if (btn) btn.addEventListener("click", () => set(get() === "el" ? "en" : "el"));
+
+  return { get, set };
+})();
+
+/* Picks the right half of an { el, en } pair. Plain strings pass through
+   untouched, so a value that is the same in both languages can stay one
+   string in the config above. */
+function pick(v){
+  if (v && typeof v === "object" && !Array.isArray(v)) return v[LANG.get()] || v.el || "";
+  return v || "";
+}
+
+/* Builds the two-language markup for anything written into the page by
+   this script, so switching language never needs a reload. */
+function both(v){
+  if (v && typeof v === "object" && !Array.isArray(v)) {
+    return `<span class="l-el">${v.el || ""}</span><span class="l-en">${v.en || v.el || ""}</span>`;
+  }
+  return v || "";
+}
+
+
 /* ═══ 1. CONFIG → PAGE ═════════════════════════════════════════════════ */
 (function(){
-  const set = (id, v) => { const el = document.getElementById(id); if (el && v) el.textContent = v; };
-  document.querySelectorAll("[data-cta]").forEach(el => el.textContent = DION.cta);
-  document.querySelectorAll("[data-phone]").forEach(el => {
-    el.setAttribute("href", "tel:" + DION.phone.replace(/\s/g, ""));
-  });
-  set("cAddr1", DION.address[0]);  set("cAddr2", DION.address[1]);
-  set("cHours1", DION.hours[0]);   set("cHours2", DION.hours[1]);
-  set("cPhone", DION.phone);       set("fPhone", DION.phone);
-  set("fAddr", DION.address.join(", "));
+  const set  = (id, v) => { const el = document.getElementById(id); if (el && v) el.innerHTML = v; };
+  const tel  = "tel:" + DION.phone.replace(/[^\d+]/g, "");
+
+  document.querySelectorAll("[data-phone]").forEach(el => el.setAttribute("href", tel));
+  document.querySelectorAll("[data-cta-label]").forEach(el => el.innerHTML = both(DION.cta));
+
+  set("cAddr1", DION.address[0]);
+  set("cAddr2", DION.address[1]);
+  set("fAddr",  DION.address.join(", "));
+  set("cHours1", both({ el: DION.hours.el[0], en: DION.hours.en[0] }));
+  set("cHours2", both({ el: DION.hours.el[1], en: DION.hours.en[1] }));
+  set("fHours",  both({ el: DION.hours.el[0], en: DION.hours.en[0] }));
+  set("cPhone",  DION.phone);
+  set("fPhone",  DION.phone);
   set("cIgHandle", DION.instagram.handle);
+
   ["cIg", "fIg"].forEach(id => { const el = document.getElementById(id); if (el) el.href = DION.instagram.url; });
   const map = document.getElementById("cMap"); if (map) map.href = DION.mapUrl;
   document.querySelectorAll("#year").forEach(el => el.textContent = new Date().getFullYear());
 
-  const list = document.getElementById("drinkList");
-  if (list && DION.drinks.length) {
-    list.innerHTML = DION.drinks.map(d =>
-      `<li><b>${d.name}</b>${d.price ? `<i>${d.price}</i>` : ""}<em>${d.of}</em></li>`
-    ).join("");
-    set("drinkFoot", DION.drinksFootnote);
+  const wa = document.getElementById("cWa");
+  if (wa && DION.whatsapp && DION.whatsapp.active) {
+    const num = (DION.whatsapp.number || DION.phone).replace(/[^\d]/g, "");
+    if (num) { wa.href = "https://wa.me/" + num; wa.hidden = false; }
   }
 })();
 
-/* ═══ 2. THE ENTRANCE (home page only) ═════════════════════════════════ */
+
+/* ═══ 2. THE DRINKS MENU ═══════════════════════════════════════════════ */
+(function(){
+  const host = document.getElementById("drinkMenu");
+  if (!host) return;
+
+  const groups = (DION.drinks || []).filter(g => g.items && g.items.length);
+  host.innerHTML = groups.map(g => `
+    <div class="menu__group rv">
+      <h2 class="menu__head">${both(g.name)}</h2>
+      <ul class="list">
+        ${g.items.map(d => `<li><b>${d.name}</b>${d.price ? `<i>${d.price}</i>` : ""}<em>${both(d.of)}</em></li>`).join("")}
+      </ul>
+    </div>`).join("");
+
+  const foot = document.getElementById("drinkFoot");
+  if (foot) foot.innerHTML = both(DION.drinksFootnote);
+})();
+
+
+/* ═══ 3. EVENTS ════════════════════════════════════════════════════════
+   Anything dated before today is dropped, so the page tidies itself. If
+   nothing is left, the Events link is pulled out of the menu and the
+   footer unless showEventsWhenEmpty is on.                             */
+(function(){
+  const MONTHS = {
+    el: ["Ιανουαρίου","Φεβρουαρίου","Μαρτίου","Απριλίου","Μαΐου","Ιουνίου",
+         "Ιουλίου","Αυγούστου","Σεπτεμβρίου","Οκτωβρίου","Νοεμβρίου","Δεκεμβρίου"],
+    en: ["January","February","March","April","May","June",
+         "July","August","September","October","November","December"]
+  };
+  const DAYS = {
+    el: ["Κυριακή","Δευτέρα","Τρίτη","Τετάρτη","Πέμπτη","Παρασκευή","Σάββατο"],
+    en: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+  };
+
+  /* Day-first, spelled out, in both languages. */
+  function when(iso, time){
+    const p = String(iso).split("-");
+    const d = new Date(+p[0], +p[1] - 1, +p[2]);
+    if (isNaN(d)) return { el: iso, en: iso };
+    const out = {};
+    ["el", "en"].forEach(l => {
+      out[l] = `${DAYS[l][d.getDay()]} ${d.getDate()} ${MONTHS[l][d.getMonth()]}`
+             + (time ? ` · ${time}` : "");
+    });
+    return out;
+  }
+
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const live = (DION.events || [])
+    .filter(e => { const d = new Date(e.date); return !isNaN(d) && d >= today; })
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+
+  const empty = !live.length;
+
+  if (empty && !DION.showEventsWhenEmpty) {
+    document.querySelectorAll('[data-nav="events"]').forEach(el => el.remove());
+  }
+
+  const list = document.getElementById("eventList");
+  if (!list) return;                                  // not the Events page
+
+  const blank = document.getElementById("eventEmpty");
+  if (empty) {
+    list.hidden = true;
+    if (blank) blank.hidden = false;
+    return;
+  }
+
+  list.innerHTML = live.map(e => {
+    const w = when(e.date, e.time);
+    return `<li class="rv">
+      <p class="events__when">${both(w)}</p>
+      <h2 class="events__title">${both(e.title)}</h2>
+      ${e.text ? `<p class="events__text">${both(e.text)}</p>` : ""}
+    </li>`;
+  }).join("");
+})();
+
+
+/* ═══ 4. THE ANNOUNCEMENT BAR ══════════════════════════════════════════
+   Sits above the header. The nav is pushed down by its exact height, so
+   nothing overlaps whether the header is the transparent home version or
+   the solid one on every other page.                                   */
+(function(){
+  const bar = document.getElementById("announce");
+  const a   = DION.announcement;
+  if (!bar || !a || !a.active || !(a.el || a.en)) return;
+
+  const key = "dion-ann-" + (a.el || a.en).slice(0, 40);
+  try { if (sessionStorage.getItem(key)) return; } catch(e){}
+
+  const text = document.getElementById("annText");
+  if (text) text.innerHTML = both({ el: a.el, en: a.en });
+  bar.hidden = false;
+  document.body.classList.add("has-announce");
+
+  const measure = () =>
+    document.documentElement.style.setProperty("--ann-h", bar.offsetHeight + "px");
+  measure();
+  addEventListener("resize", measure, { passive: true });
+  addEventListener("dion:lang", measure);            // Greek and English differ in length
+
+  const close = document.getElementById("annClose");
+  if (close) close.addEventListener("click", () => {
+    bar.remove();
+    document.body.classList.remove("has-announce");
+    document.documentElement.style.setProperty("--ann-h", "0px");
+    try { sessionStorage.setItem(key, "1"); } catch(e){}
+  });
+})();
+
+
+/* ═══ 5. THE ENTRANCE (home page only) ═════════════════════════════════ */
 (function(){
   const root = document.documentElement;
   const ent  = document.getElementById("entrance");
@@ -122,13 +353,15 @@ const DION = {
   if (skip) skip.addEventListener("click", finish);
 })();
 
-/* ═══ 3. NO BROKEN PICTURES ════════════════════════════════════════════ */
+
+/* ═══ 6. NO BROKEN PICTURES ════════════════════════════════════════════ */
 addEventListener("error", e => {
   const el = e.target;
   if (el && el.tagName === "IMG") el.classList.add("is-failed");
 }, true);
 
-/* ═══ 4. NAVIGATION ════════════════════════════════════════════════════ */
+
+/* ═══ 7. NAVIGATION ════════════════════════════════════════════════════ */
 (function(){
   const nav = document.getElementById("nav");
   const burger = document.getElementById("burger");
@@ -150,7 +383,8 @@ addEventListener("error", e => {
   addEventListener("keydown", e => { if (e.key === "Escape") close(); });
 })();
 
-/* ═══ 5. REVEALS ═══════════════════════════════════════════════════════ */
+
+/* ═══ 8. REVEALS ═══════════════════════════════════════════════════════ */
 (function(){
   const items = document.querySelectorAll(".rv, .rv-fade");
   if (!items.length) return;
@@ -161,7 +395,8 @@ addEventListener("error", e => {
   items.forEach(el => io.observe(el));
 })();
 
-/* ═══ 6. LIGHTBOX — tap any picture, then pinch, wheel or drag to zoom ══
+
+/* ═══ 9. LIGHTBOX — tap any picture, then pinch, wheel or drag to zoom ══
    Works for the gallery grid and for the overlapping plates on the other
    pages: anything with [data-full] joins the same set, so the arrows step
    through every picture on the page.                                    */

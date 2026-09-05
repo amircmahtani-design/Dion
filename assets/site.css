@@ -470,3 +470,83 @@ button.fig{display:block;width:100%;padding:0;border:0;cursor:zoom-in}
   .scroll-cue::after{animation:none}
   html{scroll-behavior:auto}
 }
+
+/* ═══ 15. LANGUAGE ══════════════════════════════════════════════════
+   Both languages sit in the markup; one set is hidden. The head script
+   picks the language before first paint, so nothing flashes. !important
+   because several of these elements carry their own display value.   */
+html[data-lang="el"] .l-en,
+html[data-lang="en"] .l-el{display:none!important}
+
+/* The brand carries margin-right:auto, so the rest of the bar is already
+   pushed right; these only fix the order the controls appear in. */
+.nav__links{order:1}
+.lang{order:2}
+.nav > .nav__cta{order:3}
+.nav__burger{order:4}
+
+.lang{background:none;border:1px solid rgba(243,238,227,.28);
+  color:rgba(243,238,227,.86);cursor:pointer;padding:9px 13px;line-height:1;
+  font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:.22em;
+  text-indent:.22em;text-transform:uppercase;
+  transition:border-color .3s ease,color .3s ease,background .3s ease}
+.lang:hover{border-color:var(--gold);color:var(--gold-lt);background:rgba(201,168,106,.08)}
+
+/* ═══ 16. ANNOUNCEMENT BAR ══════════════════════════════════════════
+   Fixed above the header. The nav and every page header are offset by
+   its measured height (--ann-h, set in site.js) so nothing overlaps. */
+.announce{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;
+  align-items:center;justify-content:center;gap:14px;
+  padding:10px var(--gutter);padding-top:max(10px,env(safe-area-inset-top));
+  background:var(--gold);color:var(--olive-950);text-align:center}
+.announce p{margin:0;font-size:12.5px;letter-spacing:.06em;line-height:1.45}
+.announce button{flex:none;background:none;border:0;cursor:pointer;padding:0 2px;
+  font-size:19px;line-height:1;color:var(--olive-800);opacity:.65}
+.announce button:hover{opacity:1}
+body.menu-open .announce{opacity:0;pointer-events:none}
+
+.nav{top:var(--ann-h,0px)}
+.pagehead{padding-top:calc(clamp(96px,15vh,150px) + env(safe-area-inset-top) + var(--ann-h,0px))}
+@media (max-width:520px){.announce p{font-size:11.5px}}
+
+/* ═══ 17. HERO BUTTON ROW ═══════════════════════════════════════════ */
+.hero__cta{display:flex;flex-wrap:wrap;gap:12px 14px;align-items:center}
+@media (max-width:420px){.hero__cta .btn{padding:14px 20px;font-size:10px}}
+
+/* ═══ 18. THREE PILLARS ═════════════════════════════════════════════
+   Three columns rather than four, and a single stacked column on a
+   phone — the pillar copy is long enough that two-up would crush it. */
+.strip__grid--3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:820px){
+  .strip__grid--3{grid-template-columns:1fr;row-gap:0;padding-block:10px}
+  .strip__grid--3 .feat{padding-block:26px}
+  .strip__grid--3 .feat:nth-child(even){border-left:0}
+  .strip__grid--3 .feat + .feat{border-left:0;border-top:1px solid var(--cream-3)}
+  .strip__grid--3 .feat p{max-width:38ch}
+}
+
+/* ═══ 19. DRINKS MENU ═══════════════════════════════════════════════ */
+.menu{margin-top:clamp(30px,4.5vw,52px)}
+.menu__group + .menu__group{margin-top:clamp(38px,5vw,64px)}
+.menu__head{font-size:clamp(22px,2.6vw,30px);text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:16px}
+.menu__head::before,.menu__head::after{content:"";flex:1;max-width:90px;height:1px;
+  background:var(--cream-3)}
+.menu .list{margin-top:clamp(18px,2.4vw,28px)}
+
+/* ═══ 20. EVENTS ════════════════════════════════════════════════════ */
+.events{list-style:none;margin:clamp(30px,4.5vw,52px) 0 0;padding:0;
+  display:grid;gap:2px;max-width:var(--measure);margin-inline:auto}
+.events li{text-align:center;padding:clamp(24px,3.4vw,34px) 0;
+  border-bottom:1px solid rgba(201,168,106,.2)}
+.events li:first-child{border-top:1px solid rgba(201,168,106,.2)}
+.events__when{margin:0;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--sage-dim)}
+.events__title{margin:10px 0 0;font-size:clamp(24px,3vw,34px);color:var(--cream)}
+.events__text{margin:10px auto 0;max-width:46ch;font-size:15px;
+  color:rgba(243,238,227,.72)}
+
+/* ═══ 21. FOOTER TAGLINE ════════════════════════════════════════════ */
+.foot__line{max-width:34ch;margin:clamp(18px,2.4vw,24px) auto 0;
+  font-family:var(--serif);font-size:clamp(16px,1.5vw,19px);font-style:italic;
+  line-height:1.45;color:rgba(243,238,227,.72)}
