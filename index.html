@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el" data-lang="el" data-title-el="DION — Λίγη νησιώτικη ενέργεια" data-title-en="DION — A little island energy">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.className="js"</script>
+<script>
+/* Language is settled before first paint so the wrong one never flashes. */
+document.documentElement.className="js";
+(function(){var l="el";try{if(localStorage.getItem("dion-lang")==="en")l="en"}catch(e){}
+var r=document.documentElement;r.lang=l;r.setAttribute("data-lang",l);})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>DION — Mainland Soul</title>
-<meta name="description" content="DION is a bar. Greek drinks, warm nights and good people. Island soul, without leaving the mainland.">
+<title>DION — Λίγη νησιώτικη ενέργεια</title>
+<meta name="description" content="Το DION είναι ένα bar στην Παλαιά Φώκαια. Καλά ποτά, μουσική και βραδιές που κρατούν λίγο περισσότερο.">
 <meta name="theme-color" content="#0B0B0A">
-<meta property="og:title" content="DION — Mainland Soul">
-<meta property="og:description" content="DION is a bar. Greek drinks, warm nights and good people. Island soul, without leaving the mainland.">
+<meta property="og:title" content="DION — Λίγη νησιώτικη ενέργεια">
+<meta property="og:description" content="Το DION είναι ένα bar στην Παλαιά Φώκαια. Καλά ποτά, μουσική και βραδιές που κρατούν λίγο περισσότερο.">
 <meta property="og:image" content="hero-wide.jpeg">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="el_GR">
+<meta property="og:locale:alternate" content="en_GB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -103,100 +110,116 @@
 </div>
 <button class="skip" id="skip" type="button">Skip</button>
 
+<!-- Filled in by site.js from DION.announcement — stays hidden when inactive. -->
+<div class="announce" id="announce" hidden>
+  <p id="annText"></p>
+  <button type="button" id="annClose" aria-label="Close">&times;</button>
+</div>
 <header class="nav nav--overlay" id="nav">
-  <a class="nav__brand" href="index.html" aria-label="DION, home">
+  <a class="nav__brand" href="index.html" aria-label="DION">
     <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
     <span>DION<small>Mainland Soul</small></span>
   </a>
+  <button class="lang" id="lang" type="button" aria-label="Change language">
+    <span class="l-el">EN</span><span class="l-en">ΕΛ</span>
+  </button>
   <button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
   <ul class="nav__links" id="menu">
-      <li><a href="index.html" aria-current="page">Home</a></li>
-      <li><a href="drinks.html">Drinks</a></li>
-      <li><a href="vibe.html">The Vibe</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a></li>
+      <li><a href="index.html" aria-current="page"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a></li>
+      <li><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a></li>
+      <li><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a></li>
+      <li><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a></li>
+      <li data-nav="events"><a href="events.html"><span class="l-el">Events</span><span class="l-en">Events</span></a></li>
+      <li><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a></li>
+      <li><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></li>
+      <li><a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></li>
   </ul>
-  <a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a>
+  <a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
 </header>
 
 <main>
 <section class="hero">
   <picture class="hero__media" id="heroMedia">
     <img id="heroImg" src="hero-wide.jpeg" width="2000" height="1330" fetchpriority="high"
-         decoding="async" alt="The DION courtyard on a summer night — string lights over full tables and the bar glowing through open shutters">
+         decoding="async" alt="DION">
   </picture>
   <div class="hero__inner">
-    <h1>Good vibes.<em>Mainland soul.</em></h1>
+    <h1 class="l-el">Λίγη νησιώτικη ενέργεια,<em>χωρίς να φύγεις από τη στεριά.</em></h1>
+    <h1 class="l-en">A little island energy,<em>without leaving the mainland.</em></h1>
     <svg class="squiggle" viewBox="0 0 74 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">
       <path d="M1 8C7 1 12 1 18 7c6 6 11 6 17 0 6-6 11-6 17 0 6 6 11 6 17-1"/>
     </svg>
-    <p>Incredible drinks, feel-good energy and unforgettable nights.</p>
-    <p class="hand">Greek in the glass, Greek at heart.
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-        <path d="M12 21C4 15 2 11 3.6 7.7 5.2 4.4 9.6 4.6 12 8.4c2.4-3.8 6.8-4 8.4-.7C22 11 20 15 12 21Z"/>
-      </svg>
-    </p>
-    <a class="btn" href="drinks.html">See what's inside
-      <svg width="16" height="9" viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
-        <path d="M0 4.5h14M10.5 1l3.6 3.5-3.6 3.5"/></svg>
-    </a>
+    <p class="l-el">Καλό ποτό, καλή μουσική και βραδιές που δεν χρειάζονται ιδιαίτερο σχέδιο.</p>
+    <p class="l-en">Great drinks, good music and the kind of nights that don't need much of a plan.</p>
+    <div class="hero__cta">
+      <a class="btn" href="drinks.html"><span class="l-el">Δες τα ποτά</span><span class="l-en">Explore the drinks</span> <svg width="16" height="9" viewBox="0 0 16 9" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M0 4.5h14M10.5 1l3.6 3.5-3.6 3.5"/></svg></a>
+      <a class="btn" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
+    </div>
   </div>
-  <a class="scroll-cue" href="#strip" aria-hidden="true" tabindex="-1">Scroll</a>
+  <a class="scroll-cue" href="#intro" aria-hidden="true" tabindex="-1">Scroll</a>
 </section>
-<svg class="curve curve--cream" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-  <path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/>
-</svg>
+<svg class="curve curve--cream" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
+<section class="section section--cream" id="intro">
+  <div class="wrap col">
+<p class="lede rv l-el">Το DION είναι το μέρος για εκείνες τις βραδιές που ξεκινούν με ένα ποτό και καταλήγουν λίγο αργότερα απ' όσο είχες υπολογίσει.</p>
+<p class="lede rv l-en">DION is made for the kind of evening that starts with one drink and somehow ends a little later than planned.</p>
+<p class="lede rv l-el">Cocktails φτιαγμένα σωστά, ελληνικές ετικέτες που αξίζει να δοκιμάσεις, μουσική που κρατάει την ενέργεια ψηλά και μια χαλαρή ατμόσφαιρα που θυμίζει καλοκαιρινή απόδραση.</p>
+<p class="lede rv l-en">Proper cocktails, Greek bottles worth discovering, music that keeps the mood moving and a relaxed atmosphere with just enough summer energy to feel like an escape.</p>
+<p class="hand rv l-el">Χωρίς υπερβολές. Χωρίς στημένο ύφος. Απλώς ένα μέρος που θέλεις να ξαναέρθεις.</p>
+<p class="hand rv l-en">No unnecessary fuss. No trying too hard. Just somewhere you'll want to come back to.</p>
+  </div>
+</section>
 <section class="strip" id="strip">
-  <div class="wrap strip__grid">
+  <div class="wrap strip__grid strip__grid--3">
     <div class="feat rv">
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M9 13h30L24 29 9 13Z"/><path d="M24 29v9M17 39h14"/><path d="M31.5 9c-1.5 1.5-3 3-4.5 4.5"/><circle cx="33" cy="7" r="2.6"/>
       </svg>
-      <h3>Incredible drinks</h3><p>Cocktails worth coming back for.</p>
-    </div>
-    <div class="feat rv">
-      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M24 41c0-11 2-21 7-30"/><path d="M27 30c-6-1-10-6-9-11 6 0 10 5 9 11Z"/>
-        <path d="M28.5 21c5-2 8-7 7-12-6 1-9 7-7 12Z"/><path d="M25 37c-5 0-9-4-9-8 5 0 9 4 9 8Z"/>
-      </svg>
-      <h3>Greek at heart</h3><p>Greek ingredients. Greek bottles. No fuss.</p>
+      <h3><span class="l-el">Ποτά που αξίζουν</span><span class="l-en">Drinks worth staying for</span></h3>
+      <p><span class="l-el">Cocktails με χαρακτήρα, κλασικές επιλογές που γίνονται όπως πρέπει και ελληνικά κρασιά και αποστάγματα που αγαπάμε πραγματικά.</span><span class="l-en">Cocktails with character, classics made properly and Greek wines and spirits we genuinely enjoy.</span></p>
     </div>
     <div class="feat rv">
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M12 27a12 12 0 0 1 24 0"/><path d="M24 7v-4M9.5 12.5 7 10M38.5 12.5 41 10M7 27H3M45 27h-4"/>
         <path d="M5 34c4-3 7 3 11 0s7 3 11 0 7 3 11 0"/><path d="M5 41c4-3 7 3 11 0s7 3 11 0 7 3 11 0"/>
       </svg>
-      <h3>Real atmosphere</h3><p>Music, people and warm nights.</p>
+      <h3><span class="l-el">Η σωστή ατμόσφαιρα</span><span class="l-en">The right atmosphere</span></h3>
+      <p><span class="l-el">Ζεστά βράδια, μουσική, παρέες και ένας χώρος φτιαγμένος για να κάθεσαι λίγο περισσότερο.</span><span class="l-en">Warm evenings, good music, good people and a space designed to make you stay a little longer.</span></p>
     </div>
     <div class="feat rv">
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M24 40C10 30 6 22 9 16c3-6 11-6 15 1 4-7 12-7 15-1 3 6-1 14-15 24Z"/>
+        <path d="M24 41c0-11 2-21 7-30"/><path d="M27 30c-6-1-10-6-9-11 6 0 10 5 9 11Z"/>
+        <path d="M28.5 21c5-2 8-7 7-12-6 1-9 7-7 12Z"/><path d="M25 37c-5 0-9-4-9-8 5 0 9 4 9 8Z"/>
       </svg>
-      <h3>Young at heart</h3><p>Fancy without the fuss.</p>
+      <h3><span class="l-el">Ελληνική ψυχή</span><span class="l-en">Greek at heart</span></h3>
+      <p><span class="l-el">Το DION έχει Ελλάδα μέσα του χωρίς να προσπαθεί να γίνει καρτ ποστάλ. Απλό, σύγχρονο και ανεπιτήδευτο.</span><span class="l-en">DION carries Greece in its character without trying to turn it into a postcard. Simple, modern and effortless.</span></p>
     </div>
   </div>
 </section>
 <section class="section section--cream">
   <div class="wrap">
     <div class="col">
-      <p class="eyebrow rv">Have a look</p>
-      <h2 class="rv">A little island energy, <em style="font-style:italic;color:var(--olive-400)">without leaving the mainland.</em></h2>
-      <p class="lede rv">No dress code, no island mark-up — just somewhere you end up staying longer than you planned.</p>
+<p class="eyebrow rv l-el">Ρίξε μια ματιά</p>
+<p class="eyebrow rv l-en">Have a look</p>
     </div>
     <div class="cards">
       <a class="card rv" href="drinks.html">
-        <span class="card__img"><img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt="A cocktail on a wooden table"></span>
-        <h3>Drinks</h3><p>Greek ingredients, Greek bottles, zero unnecessary theatre.</p><span>See the list →</span>
+        <span class="card__img"><img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
+        <h3><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></h3>
+        <p><span class="l-el">Signature cocktails, κλασικά και ελληνικές ετικέτες που αξίζουν.</span><span class="l-en">Signature cocktails, classics and Greek bottles worth discovering.</span></p>
+        <span><span class="l-el">Δες τον κατάλογο →</span><span class="l-en">See the list →</span></span>
       </a>
       <a class="card rv" href="vibe.html">
-        <span class="card__img"><img src="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt="Tables and chairs under strung lights"></span>
-        <h3>The Vibe</h3><p>Come for one, stay for three. Music, people and warm nights.</p><span>Have a look →</span>
+        <span class="card__img"><img src="https://images.unsplash.com/photo-1714381633320-e5c3fd0f14db?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
+        <h3><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></h3>
+        <p><span class="l-el">Έλα για ένα ποτό. Μείνε για δεύτερο. Η βραδιά βρίσκει τον ρυθμό της.</span><span class="l-en">Come for a drink. Stay for another. The evening finds its own rhythm.</span></p>
+        <span><span class="l-el">Ρίξε μια ματιά →</span><span class="l-en">Have a look →</span></span>
       </a>
       <a class="card rv" href="gallery.html">
-        <span class="card__img"><img src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt="Three people raising glasses"></span>
-        <h3>Gallery</h3><p>Nights that ran long, and the people who stayed for them.</p><span>Open the gallery →</span>
+        <span class="card__img"><img src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=900&amp;h=675&amp;q=72" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
+        <h3><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></h3>
+        <p><span class="l-el">Οι βραδιές στο DION δείχνουν καλύτερα απ' όσο περιγράφονται.</span><span class="l-en">Nights at DION are easier to show than explain.</span></p>
+        <span><span class="l-el">Άνοιξε τη gallery →</span><span class="l-en">Open the gallery →</span></span>
       </a>
     </div>
   </div>
@@ -204,9 +227,11 @@
 <svg class="curve curve--olive" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
 <section class="section section--olive">
   <div class="wrap col">
-    <h2 class="rv">Come by. Stay a while.</h2>
-    <p class="lede rv">Every day · 18:00 until late. The courtyard fills up after 21:00.</p>
-    <p class="rv"><a class="btn" href="contact.html" data-cta>Reserve a table</a></p>
+<h2 class="rv l-el">Το τραπέζι σου σε περιμένει.</h2>
+<h2 class="rv l-en">Your table is waiting.</h2>
+<p class="lede rv l-el">Εσύ απλώς αποφάσισε με ποιον έρχεσαι.</p>
+<p class="lede rv l-en">You just need to decide who you're bringing.</p>
+    <p class="rv"><a class="btn" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></p>
   </div>
 </section>
 </main>
@@ -218,24 +243,26 @@
   <button type="button" class="lb__close" aria-label="Close">&times;</button>
   <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
   <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
-  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+  <p class="lb__hint"><span class="l-el">Pinch ή διπλό tap για zoom</span><span class="l-en">Pinch or double-tap to zoom</span></p>
 </div>
 
 <footer class="foot">
   <div class="wrap">
-    <a class="foot__brand" href="index.html" aria-label="DION, home">
+    <a class="foot__brand" href="index.html" aria-label="DION">
       <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
       <span><b>DION</b><small>Mainland Soul</small></span>
     </a>
-    <nav aria-label="Footer"><a href="index.html" aria-current="page">Home</a><a href="drinks.html">Drinks</a><a href="vibe.html">The Vibe</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <p class="foot__line"><span class="l-el">Λίγη νησιώτικη ενέργεια, χωρίς να φύγεις από τη στεριά.</span><span class="l-en">A little island energy, without leaving the mainland.</span></p>
+    <nav aria-label="Footer"><a href="index.html" aria-current="page"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a><a href="events.html" data-nav="events"><span class="l-el">Events</span><span class="l-en">Events</span></a><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></nav>
     <div class="foot__col">
-      <span id="fAddr">Street name 00, Town, Greece</span>
-      <a id="fPhone" href="tel:+300000000000" data-phone>+30 000 000 0000</a>
+      <span id="fAddr">28is Oktovriou 22, Palea Fokea 190 13, Greece</span>
+      <span id="fHours"><span class="l-el">Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00</span><span class="l-en">Open from 20:30 · Friday from 21:00</span></span>
+      <a id="fPhone" href="tel:+306948222527" data-phone>+30 694 822 2527</a>
       <a id="fIg" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="foot__base">
       <span>© <span id="year">2026</span> DION · Mainland Soul</span>
-      <span>Greek in the glass, Greek at heart.</span>
+      <span><span class="l-el">Ελληνικό στο ποτήρι, ελληνικό στην ψυχή.</span><span class="l-en">Greek in the glass, Greek at heart.</span></span>
     </div>
   </div>
 </footer>

@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el" data-lang="el" data-title-el="Επικοινωνία · DION" data-title-en="Contact · DION">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.className="js"</script>
+<script>
+/* Language is settled before first paint so the wrong one never flashes. */
+document.documentElement.className="js";
+(function(){var l="el";try{if(localStorage.getItem("dion-lang")==="en")l="en"}catch(e){}
+var r=document.documentElement;r.lang=l;r.setAttribute("data-lang",l);})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Contact · DION</title>
-<meta name="description" content="Find DION — address, opening hours and how to reserve a table.">
+<title>Επικοινωνία · DION</title>
+<meta name="description" content="Βρες το DION — διεύθυνση, ώρες λειτουργίας και κρατήσεις.">
 <meta name="theme-color" content="#0B0B0A">
-<meta property="og:title" content="Contact · DION">
-<meta property="og:description" content="Find DION — address, opening hours and how to reserve a table.">
+<meta property="og:title" content="Επικοινωνία · DION">
+<meta property="og:description" content="Βρες το DION — διεύθυνση, ώρες λειτουργίας και κρατήσεις.">
 <meta property="og:image" content="hero-wide.jpeg">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="el_GR">
+<meta property="og:locale:alternate" content="en_GB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -43,53 +50,76 @@
   </g>
 </symbol></svg>
 
+<!-- Filled in by site.js from DION.announcement — stays hidden when inactive. -->
+<div class="announce" id="announce" hidden>
+  <p id="annText"></p>
+  <button type="button" id="annClose" aria-label="Close">&times;</button>
+</div>
 <header class="nav nav--solid" id="nav">
-  <a class="nav__brand" href="index.html" aria-label="DION, home">
+  <a class="nav__brand" href="index.html" aria-label="DION">
     <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
     <span>DION<small>Mainland Soul</small></span>
   </a>
+  <button class="lang" id="lang" type="button" aria-label="Change language">
+    <span class="l-el">EN</span><span class="l-en">ΕΛ</span>
+  </button>
   <button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
   <ul class="nav__links" id="menu">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="drinks.html">Drinks</a></li>
-      <li><a href="vibe.html">The Vibe</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html" aria-current="page">Contact</a></li>
-      <li><a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a></li>
+      <li><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a></li>
+      <li><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a></li>
+      <li><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a></li>
+      <li><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a></li>
+      <li data-nav="events"><a href="events.html"><span class="l-el">Events</span><span class="l-en">Events</span></a></li>
+      <li><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a></li>
+      <li><a href="contact.html" aria-current="page"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></li>
+      <li><a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></li>
   </ul>
-  <a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a>
+  <a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
 </header>
 
 <main>
 <section class="pagehead">
   <div class="wrap">
-    <p class="eyebrow rv">Find us</p>
-    <h1 class="rv">Come by. Stay a while.</h1>
-    <p class="lede rv">Most people just turn up — but if you'd rather have a table waiting, call ahead.</p>
+<p class="eyebrow rv l-el">Επικοινωνία</p>
+<p class="eyebrow rv l-en">Contact</p>
+<h1 class="rv l-el">Έλα να <em>μας βρεις.</em></h1>
+<h1 class="rv l-en">Come and <em>find us.</em></h1>
+<p class="lede rv l-el">Για ένα γρήγορο ποτό, για ολόκληρο το βράδυ ή απλώς επειδή πέρασες από τη γειτονιά.</p>
+<p class="lede rv l-en">For one quick drink, the whole evening or simply because you happened to be nearby.</p>
   </div>
 </section>
 <section class="section section--olive">
   <div class="wrap">
     <ul class="facts">
-      <li class="rv"><h3>Where</h3>
-        <p id="cAddr1">Street name 00</p><p id="cAddr2">Town, Greece</p></li>
-      <li class="rv"><h3>Open</h3>
-        <p id="cHours1">Every day · 18:00 until late</p>
-        <p id="cHours2">The courtyard fills up after 21:00</p></li>
-      <li class="rv"><h3>Talk to us</h3>
-        <a id="cPhone" href="tel:+300000000000" data-phone>+30 000 000 0000</a></li>
+      <li class="rv"><h3><span class="l-el">Διεύθυνση</span><span class="l-en">Address</span></h3>
+        <p id="cAddr1">28is Oktovriou 22</p><p id="cAddr2">Palea Fokea 190 13, Greece</p></li>
+      <li class="rv"><h3><span class="l-el">Ώρες λειτουργίας</span><span class="l-en">Opening hours</span></h3>
+        <p id="cHours1"><span class="l-el">Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00</span><span class="l-en">Open from 20:30 · Friday from 21:00</span></p>
+        <p id="cHours2"><span class="l-el">Κλειστά τις Κυριακές</span><span class="l-en">Closed Sundays</span></p></li>
+      <li class="rv"><h3><span class="l-el">Τηλέφωνο</span><span class="l-en">Phone</span></h3>
+        <a id="cPhone" href="tel:+306948222527" data-phone>+30 694 822 2527</a></li>
     </ul>
+
+    <div class="col" style="margin-top:clamp(38px,5vw,58px)">
+<h2 class="rv l-el">Κρατήσεις</h2>
+<h2 class="rv l-en">Reservations</h2>
+<p class="lede rv l-el">Θέλεις να είσαι σίγουρος ότι θα έχεις τραπέζι; Κάνε κράτηση ή επικοινώνησε μαζί μας.</p>
+<p class="lede rv l-en">Want to make sure there's a table waiting? Book ahead or get in touch with us.</p>
+      <div class="cta-row rv">
+        <a class="btn" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
+        <a class="btn" id="cWa" href="https://wa.me/" target="_blank" rel="noopener" hidden>WhatsApp</a>
+      </div>
+    </div>
 
     <a class="ig rv" id="cIg" href="https://instagram.com/" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
         <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/>
         <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/>
       </svg>
-      <span><b id="cIgHandle">@yourhandle</b><span>Tonight's music, tomorrow's plans, everything in between.</span></span>
+      <span><b id="cIgHandle">@yourhandle</b><span><span class="l-el">Ακολούθησε τις βραδιές μας στο Instagram.</span><span class="l-en">Follow the nights at DION.</span></span></span>
     </a>
 
-    <a class="map rv" id="cMap" href="https://www.google.com/maps" target="_blank" rel="noopener" aria-label="Open DION in Google Maps">
+    <a class="map rv" id="cMap" href="https://www.google.com/maps" target="_blank" rel="noopener">
       <span class="map__grid"></span>
       <svg class="map__road" viewBox="0 0 400 300" fill="none" stroke="currentColor" stroke-width="7" aria-hidden="true">
         <path d="M-10 210C70 200 120 176 190 150s150-40 230-72"/>
@@ -101,13 +131,8 @@
           <path d="M12 22s7-7.2 7-12A7 7 0 0 0 5 10c0 4.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.4"/>
         </svg>
       </span>
-      <span class="map__label"><em>DION</em><span>Open in Maps →</span></span>
+      <span class="map__label"><em>DION</em><span><span class="l-el">Άνοιγμα στους Χάρτες →</span><span class="l-en">Open in Maps →</span></span></span>
     </a>
-
-    <div class="cta-row">
-      <a class="btn" href="tel:+300000000000" data-cta data-phone>Reserve a table</a>
-      <span>or just turn up — most people do.</span>
-    </div>
   </div>
 </section>
 </main>
@@ -119,24 +144,26 @@
   <button type="button" class="lb__close" aria-label="Close">&times;</button>
   <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
   <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
-  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+  <p class="lb__hint"><span class="l-el">Pinch ή διπλό tap για zoom</span><span class="l-en">Pinch or double-tap to zoom</span></p>
 </div>
 
 <footer class="foot">
   <div class="wrap">
-    <a class="foot__brand" href="index.html" aria-label="DION, home">
+    <a class="foot__brand" href="index.html" aria-label="DION">
       <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
       <span><b>DION</b><small>Mainland Soul</small></span>
     </a>
-    <nav aria-label="Footer"><a href="index.html">Home</a><a href="drinks.html">Drinks</a><a href="vibe.html">The Vibe</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html" aria-current="page">Contact</a></nav>
+    <p class="foot__line"><span class="l-el">Λίγη νησιώτικη ενέργεια, χωρίς να φύγεις από τη στεριά.</span><span class="l-en">A little island energy, without leaving the mainland.</span></p>
+    <nav aria-label="Footer"><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a><a href="events.html" data-nav="events"><span class="l-el">Events</span><span class="l-en">Events</span></a><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a><a href="contact.html" aria-current="page"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></nav>
     <div class="foot__col">
-      <span id="fAddr">Street name 00, Town, Greece</span>
-      <a id="fPhone" href="tel:+300000000000" data-phone>+30 000 000 0000</a>
+      <span id="fAddr">28is Oktovriou 22, Palea Fokea 190 13, Greece</span>
+      <span id="fHours"><span class="l-el">Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00</span><span class="l-en">Open from 20:30 · Friday from 21:00</span></span>
+      <a id="fPhone" href="tel:+306948222527" data-phone>+30 694 822 2527</a>
       <a id="fIg" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="foot__base">
       <span>© <span id="year">2026</span> DION · Mainland Soul</span>
-      <span>Greek in the glass, Greek at heart.</span>
+      <span><span class="l-el">Ελληνικό στο ποτήρι, ελληνικό στην ψυχή.</span><span class="l-en">Greek in the glass, Greek at heart.</span></span>
     </div>
   </div>
 </footer>

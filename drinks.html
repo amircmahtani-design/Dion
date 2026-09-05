@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el" data-lang="el" data-title-el="Ποτά · DION" data-title-en="Drinks · DION">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.className="js"</script>
+<script>
+/* Language is settled before first paint so the wrong one never flashes. */
+document.documentElement.className="js";
+(function(){var l="el";try{if(localStorage.getItem("dion-lang")==="en")l="en"}catch(e){}
+var r=document.documentElement;r.lang=l;r.setAttribute("data-lang",l);})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Drinks · DION</title>
-<meta name="description" content="Greek ingredients, Greek bottles and flavours we actually love. The DION drinks list.">
+<title>Ποτά · DION</title>
+<meta name="description" content="Signature cocktails, κλασικές επιλογές, ελληνικές ετικέτες και αποστάγματα που αγαπάμε πραγματικά.">
 <meta name="theme-color" content="#0B0B0A">
-<meta property="og:title" content="Drinks · DION">
-<meta property="og:description" content="Greek ingredients, Greek bottles and flavours we actually love. The DION drinks list.">
+<meta property="og:title" content="Ποτά · DION">
+<meta property="og:description" content="Signature cocktails, κλασικές επιλογές, ελληνικές ετικέτες και αποστάγματα που αγαπάμε πραγματικά.">
 <meta property="og:image" content="hero-wide.jpeg">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="el_GR">
+<meta property="og:locale:alternate" content="en_GB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -43,30 +50,42 @@
   </g>
 </symbol></svg>
 
+<!-- Filled in by site.js from DION.announcement — stays hidden when inactive. -->
+<div class="announce" id="announce" hidden>
+  <p id="annText"></p>
+  <button type="button" id="annClose" aria-label="Close">&times;</button>
+</div>
 <header class="nav nav--solid" id="nav">
-  <a class="nav__brand" href="index.html" aria-label="DION, home">
+  <a class="nav__brand" href="index.html" aria-label="DION">
     <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
     <span>DION<small>Mainland Soul</small></span>
   </a>
+  <button class="lang" id="lang" type="button" aria-label="Change language">
+    <span class="l-el">EN</span><span class="l-en">ΕΛ</span>
+  </button>
   <button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
   <ul class="nav__links" id="menu">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="drinks.html" aria-current="page">Drinks</a></li>
-      <li><a href="vibe.html">The Vibe</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a></li>
+      <li><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a></li>
+      <li><a href="drinks.html" aria-current="page"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a></li>
+      <li><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a></li>
+      <li><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a></li>
+      <li data-nav="events"><a href="events.html"><span class="l-el">Events</span><span class="l-en">Events</span></a></li>
+      <li><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a></li>
+      <li><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></li>
+      <li><a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></li>
   </ul>
-  <a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a>
+  <a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
 </header>
 
 <main>
 <section class="pagehead">
   <div class="wrap">
-    <p class="eyebrow rv">Drinks</p>
-    <h1 class="rv">Drinks we actually <em style='font-style:italic;color:var(--sage)'>want</em> to drink.</h1>
-    <p class="lede rv">Good ingredients. Greek character. Zero unnecessary theatre. What goes into the glass stays close to home.</p>
+<p class="eyebrow rv l-el">Ποτά</p>
+<p class="eyebrow rv l-en">Drinks</p>
+<h1 class="rv l-el">Το ποτήρι είναι καλό σημείο <em>για να ξεκινήσεις.</em></h1>
+<h1 class="rv l-en">The glass is a pretty good <em>place to start.</em></h1>
+<p class="lede rv l-el">Στο DION αγαπάμε τα ποτά που έχουν χαρακτήρα χωρίς να χρειάζονται εξήγηση δέκα λεπτών.</p>
+<p class="lede rv l-en">At DION, we like drinks with personality that don't need a ten-minute explanation.</p>
   </div>
 </section>
 <svg class="curve curve--cream" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
@@ -74,23 +93,34 @@
   <div class="wrap">
   <div class="overlap has-c">
     <!-- photo slot: drinks-a — swap src for img/drinks-a.jpg -->
-    <button type="button" class="fig fig--a rv" data-full="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=1600&amp;h=2000&amp;q=80" aria-label="Open photo: A cocktail resting on a wooden table">
-      <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=72" width="900" height="1125" loading="lazy" decoding="async" alt="A cocktail resting on a wooden table">
+    <button type="button" class="fig fig--a rv" data-full="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=1600&amp;h=2000&amp;q=80" aria-label="DION">
+      <img src="https://images.unsplash.com/photo-1597075687490-8f673c6c17f6?auto=format&amp;fit=crop&amp;w=900&amp;h=1125&amp;q=72" width="900" height="1125" loading="lazy" decoding="async" alt="DION">
     </button>
     <!-- photo slot: drinks-b — swap src for img/drinks-b.jpg -->
-    <button type="button" class="fig fig--b rv" data-full="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: Amber cocktail poured over a single large cube of ice">
-      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="Amber cocktail poured over a single large cube of ice">
+    <button type="button" class="fig fig--b rv" data-full="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="DION">
+      <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="DION">
     </button>
     <!-- photo slot: drinks-c — swap src for img/drinks-c.jpg -->
-    <button type="button" class="fig fig--c rv" data-full="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="Open photo: A drink being poured behind the bar">
-      <img src="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="A drink being poured behind the bar">
+    <button type="button" class="fig fig--c rv" data-full="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=1600&amp;h=1600&amp;q=80" aria-label="DION">
+      <img src="https://images.unsplash.com/photo-1574879948818-1cfda7aa5b1a?auto=format&amp;fit=crop&amp;w=900&amp;h=900&amp;q=72" width="900" height="900" loading="lazy" decoding="async" alt="DION">
     </button>
   </div>
-    <ul class="list" id="drinkList"></ul>
-    <p class="list__foot" id="drinkFoot"></p>
     <div class="col" style="margin-top:clamp(38px,5vw,60px)">
-      <p class="hand rv">Greek in the glass, Greek at heart.</p>
-      <p class="rv"><a class="btn btn--dark" href="contact.html" data-cta>Reserve a table</a></p>
+<p class="lede rv l-el">Θα βρεις signature cocktails, κλασικές επιλογές, κρασιά από την Ελλάδα και τον υπόλοιπο κόσμο, μπύρες και αποστάγματα που έχουμε διαλέξει επειδή μας αρέσουν — όχι επειδή απλώς έπρεπε να υπάρχουν σε έναν κατάλογο.</p>
+<p class="lede rv l-en">Expect signature cocktails, properly made classics, Greek and international wines, beer and spirits we've chosen because we actually like them — not because they simply needed to appear on a menu.</p>
+<p class="lede rv l-el">Αν δεν ξέρεις τι θέλεις, πες μας τι σου αρέσει. Θα βρούμε κάτι.</p>
+<p class="lede rv l-en">If you're not sure what you want, tell us what you normally enjoy. We'll take it from there.</p>
+    </div>
+
+    <!-- Categories and items come from DION.drinks in assets/site.js.
+         A category with no items is skipped entirely. -->
+    <div class="menu" id="drinkMenu"></div>
+    <p class="list__foot" id="drinkFoot"></p>
+
+    <div class="col" style="margin-top:clamp(38px,5vw,60px)">
+<p class="hand rv l-el">Ελληνικό στο ποτήρι, ελληνικό στην ψυχή.</p>
+<p class="hand rv l-en">Greek in the glass, Greek at heart.</p>
+      <p class="rv"><a class="btn btn--dark" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></p>
     </div>
   </div>
 </section>
@@ -103,24 +133,26 @@
   <button type="button" class="lb__close" aria-label="Close">&times;</button>
   <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
   <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
-  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+  <p class="lb__hint"><span class="l-el">Pinch ή διπλό tap για zoom</span><span class="l-en">Pinch or double-tap to zoom</span></p>
 </div>
 
 <footer class="foot">
   <div class="wrap">
-    <a class="foot__brand" href="index.html" aria-label="DION, home">
+    <a class="foot__brand" href="index.html" aria-label="DION">
       <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
       <span><b>DION</b><small>Mainland Soul</small></span>
     </a>
-    <nav aria-label="Footer"><a href="index.html">Home</a><a href="drinks.html" aria-current="page">Drinks</a><a href="vibe.html">The Vibe</a><a href="gallery.html">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <p class="foot__line"><span class="l-el">Λίγη νησιώτικη ενέργεια, χωρίς να φύγεις από τη στεριά.</span><span class="l-en">A little island energy, without leaving the mainland.</span></p>
+    <nav aria-label="Footer"><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a><a href="drinks.html" aria-current="page"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a><a href="gallery.html"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a><a href="events.html" data-nav="events"><span class="l-el">Events</span><span class="l-en">Events</span></a><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></nav>
     <div class="foot__col">
-      <span id="fAddr">Street name 00, Town, Greece</span>
-      <a id="fPhone" href="tel:+300000000000" data-phone>+30 000 000 0000</a>
+      <span id="fAddr">28is Oktovriou 22, Palea Fokea 190 13, Greece</span>
+      <span id="fHours"><span class="l-el">Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00</span><span class="l-en">Open from 20:30 · Friday from 21:00</span></span>
+      <a id="fPhone" href="tel:+306948222527" data-phone>+30 694 822 2527</a>
       <a id="fIg" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="foot__base">
       <span>© <span id="year">2026</span> DION · Mainland Soul</span>
-      <span>Greek in the glass, Greek at heart.</span>
+      <span><span class="l-el">Ελληνικό στο ποτήρι, ελληνικό στην ψυχή.</span><span class="l-en">Greek in the glass, Greek at heart.</span></span>
     </div>
   </div>
 </footer>

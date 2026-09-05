@@ -1,16 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="el" data-lang="el" data-title-el="Φωτογραφίες · DION" data-title-en="Gallery · DION">
 <head>
 <meta charset="utf-8">
-<script>document.documentElement.className="js"</script>
+<script>
+/* Language is settled before first paint so the wrong one never flashes. */
+document.documentElement.className="js";
+(function(){var l="el";try{if(localStorage.getItem("dion-lang")==="en")l="en"}catch(e){}
+var r=document.documentElement;r.lang=l;r.setAttribute("data-lang",l);})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Gallery · DION</title>
-<meta name="description" content="Nights that ran long — photographs from the DION courtyard.">
+<title>Φωτογραφίες · DION</title>
+<meta name="description" content="Οι βραδιές στο DION δείχνουν καλύτερα απ' όσο περιγράφονται.">
 <meta name="theme-color" content="#0B0B0A">
-<meta property="og:title" content="Gallery · DION">
-<meta property="og:description" content="Nights that ran long — photographs from the DION courtyard.">
+<meta property="og:title" content="Φωτογραφίες · DION">
+<meta property="og:description" content="Οι βραδιές στο DION δείχνουν καλύτερα απ' όσο περιγράφονται.">
 <meta property="og:image" content="hero-wide.jpeg">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="el_GR">
+<meta property="og:locale:alternate" content="en_GB">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
@@ -43,52 +50,74 @@
   </g>
 </symbol></svg>
 
+<!-- Filled in by site.js from DION.announcement — stays hidden when inactive. -->
+<div class="announce" id="announce" hidden>
+  <p id="annText"></p>
+  <button type="button" id="annClose" aria-label="Close">&times;</button>
+</div>
 <header class="nav nav--solid" id="nav">
-  <a class="nav__brand" href="index.html" aria-label="DION, home">
+  <a class="nav__brand" href="index.html" aria-label="DION">
     <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
     <span>DION<small>Mainland Soul</small></span>
   </a>
+  <button class="lang" id="lang" type="button" aria-label="Change language">
+    <span class="l-el">EN</span><span class="l-en">ΕΛ</span>
+  </button>
   <button class="nav__burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span></button>
   <ul class="nav__links" id="menu">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="drinks.html">Drinks</a></li>
-      <li><a href="vibe.html">The Vibe</a></li>
-      <li><a href="gallery.html" aria-current="page">Gallery</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a></li>
+      <li><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a></li>
+      <li><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a></li>
+      <li><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a></li>
+      <li><a href="gallery.html" aria-current="page"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a></li>
+      <li data-nav="events"><a href="events.html"><span class="l-el">Events</span><span class="l-en">Events</span></a></li>
+      <li><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a></li>
+      <li><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></li>
+      <li><a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></li>
   </ul>
-  <a class="btn nav__cta" href="contact.html" data-cta>Reserve a table</a>
+  <a class="btn nav__cta" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a>
 </header>
 
 <main>
 <section class="pagehead">
   <div class="wrap">
-    <p class="eyebrow rv">Gallery</p>
-    <h1 class="rv">Nights that ran long.</h1>
-    <p class="lede rv">Eight from the courtyard. Tap any of them to see it full size.</p>
+<p class="eyebrow rv l-el">Φωτογραφίες</p>
+<p class="eyebrow rv l-en">Gallery</p>
+<h1 class="rv l-el">Οι βραδιές στο DION δείχνουν <em>καλύτερα απ' όσο περιγράφονται.</em></h1>
+<h1 class="rv l-en">Nights at DION are easier <em>to show than explain.</em></h1>
+<p class="lede rv l-el">Ποτά, μουσική, φίλοι και εκείνες οι μικρές στιγμές που κάνουν μια απλή έξοδο να κρατήσει λίγο περισσότερο.</p>
+<p class="lede rv l-en">Drinks, music, friends and all the little moments that turn a quick evening out into something that lasts a little longer.</p>
   </div>
 </section>
 <section class="section section--dark">
   <div class="wrap">
     <div class="gal">
       <!-- photo slot: gallery-1 — swap src for img/gallery-1.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: Three people raising glasses together"><img src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="Three people raising glasses together"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1568644396922-5c3bfae12521?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-2 — swap src for img/gallery-2.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: A lit terrace after dark"><img src="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="A lit terrace after dark"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1527359443443-84a48aec73d2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-3 — swap src for img/gallery-3.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: A drink being poured at the bar"><img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="A drink being poured at the bar"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-4 — swap src for img/gallery-4.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1569924995012-c4c706bfcd51?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: The bar on a busy night"><img src="https://images.unsplash.com/photo-1569924995012-c4c706bfcd51?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="The bar on a busy night"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1569924995012-c4c706bfcd51?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1569924995012-c4c706bfcd51?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-5 — swap src for img/gallery-5.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1591243315780-978fd00ff9db?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: A glass raised across the table"><img src="https://images.unsplash.com/photo-1591243315780-978fd00ff9db?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="A glass raised across the table"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1591243315780-978fd00ff9db?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1591243315780-978fd00ff9db?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-6 — swap src for img/gallery-6.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1623408859815-22534357b3db?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: Pouring into a chilled glass"><img src="https://images.unsplash.com/photo-1623408859815-22534357b3db?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="Pouring into a chilled glass"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1623408859815-22534357b3db?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1623408859815-22534357b3db?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-7 — swap src for img/gallery-7.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1546373702-eb3e6f769df2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: Bulbs strung through the branches"><img src="https://images.unsplash.com/photo-1546373702-eb3e6f769df2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="Bulbs strung through the branches"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1546373702-eb3e6f769df2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1546373702-eb3e6f769df2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
       <!-- photo slot: gallery-8 — swap src for img/gallery-8.jpg -->
-      <button type="button" data-full="https://images.unsplash.com/photo-1604601638534-8cc3198794e2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="Open photo: A quiet corner under the trees"><img src="https://images.unsplash.com/photo-1604601638534-8cc3198794e2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="A quiet corner under the trees"></button>
+      <button type="button" data-full="https://images.unsplash.com/photo-1604601638534-8cc3198794e2?auto=format&amp;fit=crop&amp;w=1500&amp;h=1500&amp;q=80" aria-label="DION"><img src="https://images.unsplash.com/photo-1604601638534-8cc3198794e2?auto=format&amp;fit=crop&amp;w=800&amp;h=800&amp;q=72" width="800" height="800" loading="lazy" decoding="async" alt="DION"></button>
     </div>
+  </div>
+</section>
+<svg class="curve curve--olive" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0 62C240 18 480 4 720 22s480 62 720 34v34H0V62Z"/></svg>
+<section class="section section--olive">
+  <div class="wrap col">
+<h2 class="rv l-el">Το τραπέζι σου σε περιμένει.</h2>
+<h2 class="rv l-en">Your table is waiting.</h2>
+<p class="lede rv l-el">Εσύ απλώς αποφάσισε με ποιον έρχεσαι.</p>
+<p class="lede rv l-en">You just need to decide who you're bringing.</p>
+    <p class="rv"><a class="btn" href="tel:+306948222527" data-cta data-phone><span data-cta-label><span class="l-el">Κλείσε τραπέζι</span><span class="l-en">Book a table</span></span></a></p>
   </div>
 </section>
 </main>
@@ -100,24 +129,26 @@
   <button type="button" class="lb__close" aria-label="Close">&times;</button>
   <button type="button" class="lb__nav lb__nav--prev" aria-label="Previous photo">&#8249;</button>
   <button type="button" class="lb__nav lb__nav--next" aria-label="Next photo">&#8250;</button>
-  <p class="lb__hint">Pinch, scroll or double-tap to zoom</p>
+  <p class="lb__hint"><span class="l-el">Pinch ή διπλό tap για zoom</span><span class="l-en">Pinch or double-tap to zoom</span></p>
 </div>
 
 <footer class="foot">
   <div class="wrap">
-    <a class="foot__brand" href="index.html" aria-label="DION, home">
+    <a class="foot__brand" href="index.html" aria-label="DION">
       <svg viewBox="0 0 100 190" aria-hidden="true"><use href="#dion-mark"/></svg>
       <span><b>DION</b><small>Mainland Soul</small></span>
     </a>
-    <nav aria-label="Footer"><a href="index.html">Home</a><a href="drinks.html">Drinks</a><a href="vibe.html">The Vibe</a><a href="gallery.html" aria-current="page">Gallery</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
+    <p class="foot__line"><span class="l-el">Λίγη νησιώτικη ενέργεια, χωρίς να φύγεις από τη στεριά.</span><span class="l-en">A little island energy, without leaving the mainland.</span></p>
+    <nav aria-label="Footer"><a href="index.html"><span class="l-el">Αρχική</span><span class="l-en">Home</span></a><a href="drinks.html"><span class="l-el">Ποτά</span><span class="l-en">Drinks</span></a><a href="vibe.html"><span class="l-el">Η Ατμόσφαιρα</span><span class="l-en">The Vibe</span></a><a href="gallery.html" aria-current="page"><span class="l-el">Φωτογραφίες</span><span class="l-en">Gallery</span></a><a href="events.html" data-nav="events"><span class="l-el">Events</span><span class="l-en">Events</span></a><a href="about.html"><span class="l-el">Το DION</span><span class="l-en">About</span></a><a href="contact.html"><span class="l-el">Επικοινωνία</span><span class="l-en">Contact</span></a></nav>
     <div class="foot__col">
-      <span id="fAddr">Street name 00, Town, Greece</span>
-      <a id="fPhone" href="tel:+300000000000" data-phone>+30 000 000 0000</a>
+      <span id="fAddr">28is Oktovriou 22, Palea Fokea 190 13, Greece</span>
+      <span id="fHours"><span class="l-el">Ανοιχτά από τις 20:30 · Παρασκευή από τις 21:00</span><span class="l-en">Open from 20:30 · Friday from 21:00</span></span>
+      <a id="fPhone" href="tel:+306948222527" data-phone>+30 694 822 2527</a>
       <a id="fIg" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="foot__base">
       <span>© <span id="year">2026</span> DION · Mainland Soul</span>
-      <span>Greek in the glass, Greek at heart.</span>
+      <span><span class="l-el">Ελληνικό στο ποτήρι, ελληνικό στην ψυχή.</span><span class="l-en">Greek in the glass, Greek at heart.</span></span>
     </div>
   </div>
 </footer>
