@@ -379,19 +379,19 @@ CARDS = f"""<section class="section section--cream">
         <span class="card__img"><img src="{img('1597075687490-8f673c6c17f6',900,675)}" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
         <h3>{t("Ποτά", "Drinks")}</h3>
         <p>{t("Signature cocktails, κλασικά και ελληνικές ετικέτες που αξίζουν.", "Signature cocktails, classics and Greek bottles worth discovering.")}</p>
-        <span>{t("Δες τον κατάλογο →", "See the list →")}</span>
+        <span class="card__go">{t("Δες τον κατάλογο →", "See the list →")}</span>
       </a>
       <a class="card rv" href="vibe.html">
         <span class="card__img"><img src="{img('1714381633320-e5c3fd0f14db',900,675)}" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
         <h3>{t("Η Ατμόσφαιρα", "The Vibe")}</h3>
         <p>{t("Έλα για ένα ποτό. Μείνε για δεύτερο. Η βραδιά βρίσκει τον ρυθμό της.", "Come for a drink. Stay for another. The evening finds its own rhythm.")}</p>
-        <span>{t("Ρίξε μια ματιά →", "Have a look →")}</span>
+        <span class="card__go">{t("Ρίξε μια ματιά →", "Have a look →")}</span>
       </a>
       <a class="card rv" href="gallery.html">
         <span class="card__img"><img src="{img('1568644396922-5c3bfae12521',900,675)}" width="900" height="675" loading="lazy" decoding="async" alt=""></span>
         <h3>{t("Φωτογραφίες", "Gallery")}</h3>
         <p>{t("Οι βραδιές στο DION δείχνουν καλύτερα απ' όσο περιγράφονται.", "Nights at DION are easier to show than explain.")}</p>
-        <span>{t("Άνοιξε τη gallery →", "Open the gallery →")}</span>
+        <span class="card__go">{t("Άνοιξε τη gallery →", "Open the gallery →")}</span>
       </a>
     </div>
   </div>
@@ -467,8 +467,8 @@ VIBE_BODY = f"""{pagehead(
 <section class="section section--cream">
   <div class="wrap col">
 {dual("p", "Καλοκαίρι, λίγο πιο κοντά", "Summer, a little closer", "eyebrow rv")}
-{dual("h2", "Ζεστός αέρας, μουσική στο βάθος, <em style=\"font-style:italic;color:var(--olive-400)\">ένα κρύο ποτό στο τραπέζι.</em>",
-      "Warm air, music in the background, <em style=\"font-style:italic;color:var(--olive-400)\">a cold drink on the table.</em>", "rv")}
+{dual("h2", "Ζεστός αέρας, μουσική στο βάθος, <em class='accent'>ένα κρύο ποτό στο τραπέζι.</em>",
+      "Warm air, music in the background, <em class='accent'>a cold drink on the table.</em>", "rv")}
 {paras([
     ("Υπάρχει κάτι στις ελληνικές καλοκαιρινές βραδιές που είναι δύσκολο να περιγράψεις, και καμία ιδιαίτερη βιασύνη να πας κάπου αλλού. Αυτό είναι το συναίσθημα που θέλαμε να φέρουμε στο DION.",
      "There's something about Greek summer evenings that's difficult to put into words, and absolutely no rush to be somewhere else. That's the feeling we wanted to bring to DION."),
