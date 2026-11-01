@@ -213,6 +213,7 @@ def footer(active_file):
     <div class="foot__base">
       <span>© <span id="year">2026</span> DION · Mainland Soul</span>
       <span>{base}</span>
+      <span class="built-by">Website made by Zenith Advisory LLC</span>
     </div>
   </div>
 </footer>"""
